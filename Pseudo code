@@ -1,0 +1,30 @@
+Code for functionality 1 , 2 and 5 done
+
+Pseudo code for functionality 3 :
+User should be able to alter one instance of an already existing recurring event
+
+1. Get recurring event id as event_id , and instance date  as modifyDate ,new start/end time as mStartTime and mEndTime.
+2. Make a new entry in event_log with : 
+       start_date  =  modifyDate;
+       end_date =  modifyDate;
+       start_time = mStartTime;
+       end_time = mEndTime;
+       related_event_id = event_id;
+       type = 1 (on time event)
+       repeat_on = null;
+
+Pseudo Code for functionality 4
+
+User should be able to alter an already existing recurring event from one instance onwards
+
+1. Get recurring event id as event_id , and instance date  as modifyDate ,new start/end time as mStartTime and mEndTime.
+2. Update original event as 
+     end_date = modifyDate;
+3. Make a new entry in event_log with : 
+       start_date  =  modifyDate;
+       end_date =  null;
+       start_time = mStartTime;
+       end_time = mEndTime;
+       related_event_id = event_id;
+       type = 2 (recurring event)
+       repeat_on = null;
