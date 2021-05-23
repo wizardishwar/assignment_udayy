@@ -6,7 +6,16 @@ exports.addEvent = async (req,res) =>{
     let endDate = req.body.end_date ? req.body.end_date : null;
     let startTime = req.body.start_time;
     let endTime = req.body.end_time;
-    let repeatOn = req.body.repeat_on ? req.body.repeat_on : null;
+    let repeatOn = req.body.repeat_on != undefined ? req.body.repeat_on : '';
+
+    let day1,day2;
+    
+    if (repeatOn) {
+        day1 = repeatOn.split(',')[0];
+        day2 = repeatOn.split(',')[1];
+    } else {
+        day1 = day2 = getDayName(day1);
+    }
 
     try {
         let [row] = await connection.query('select count(*) as userCount from user where id = ?', [req.body.user_id]);
@@ -31,8 +40,8 @@ exports.addEvent = async (req,res) =>{
                         startDate,
                         startTime,
                         endTime,
-                        '%' + repeatOn.split(',')[0] + '%',
-                        '%' + repeatOn.split(',')[1] + '%'
+                        '%' + day1 + '%',
+                        '%' + day2 + '%'
                     ]);
 
             let recurringEventExist = rows.pop().eventCount > 0;
